@@ -38,7 +38,7 @@ function App() {
       }
       prev = element;
     });
-    return (avg / encounters.length)
+    return (avg / (encounters.length - 1))
   }
 
   function getOdds() {
@@ -65,8 +65,8 @@ function App() {
       </div>
       <div className="stats">
         <div className="rate">
-          <div className="avg">avg. {humanizeDuration(getAverageWait())}</div>
-          <div className="remaining">expected {humanizeDuration(getRemainingTime(), { largest: 2 })} remaining</div>
+          <div className="avg">avg. {humanizeDuration(getAverageWait(), { maxDecimalPoints: 2 })}</div>
+          <div className="remaining">expected {humanizeDuration(getRemainingTime(), { largest: 2, maxDecimalPoints: 2 })} remaining</div>
         </div>
         <div className="chance">
           <div className="odds">{getOdds().toFixed(2)}%</div>
