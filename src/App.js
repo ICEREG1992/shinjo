@@ -62,7 +62,10 @@ function App() {
 
   function setClicks() {
     var n = prompt("enter number of encounters to set (this will wipe your average encounter time)");
-    setEncounters({clicks: n, stamps: []});
+    n = parseInt(n);
+    if (!isNaN(n)) {
+      setEncounters({clicks: n, stamps: []});
+    }
   }
 
   return (
