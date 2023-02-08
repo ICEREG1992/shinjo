@@ -5,45 +5,47 @@ import humanizeDuration from 'humanize-duration';
 const localStorageKey = 'shinjo.data';
 
 function App() {
-  const [encounters, setEncounters] = useState([]);
+  const [encounters, setEncounters] = useState({clicks: 0, stamps: []});
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem(localStorageKey));
     if (data) {
-      setEncounters(data);
+      setEncounters({clicks: data, stamps: []});
     }
   }, [])
 
   // save encounters to local storage
   useEffect(() => {
-    localStorage.setItem(localStorageKey, JSON.stringify(encounters));
+    localStorage.setItem(localStorageKey, encounters.clicks);
   }, [encounters])
 
   function addEncounter(e) {
     // add new encounter to list
+    console.log(encounters);
     setEncounters(prev => {
-      return [...prev, Date.now()]
+      console.log(prev);
+      return {clicks: prev.clicks + 1, stamps: [...(prev.stamps), Date.now()]};
     })
   }
 
   function getAverageWait() {
-    if (encounters.length === 0) {
+    if (encounters.stamps.length === 0) {
       return 0
     }
     let prev = 0;
     let avg = 0;
-    encounters.forEach(element => {
+    encounters.stamps.forEach(element => {
       if (prev !== 0) {
         avg += element - prev;
       }
       prev = element;
     });
-    return (avg / (encounters.length - 1))
+    return (avg / (encounters.stamps.length - 1))
   }
 
   function getOdds() {
     var a = 1/8192;
-    var b = encounters.length;
+    var b = encounters.stamps.length;
     var c = Math.pow(1 - a, b);
     return 100 * (c * Math.pow( - (1 / (a - 1)), b) - c)
   }
@@ -51,17 +53,22 @@ function App() {
   function getRemainingEncounters() {
     var a = 1/8192;
     var b = Math.ceil(Math.log(0.1) / Math.log(1 - a));
-    return b - encounters.length;
+    return b - encounters.stamps.length;
   }
 
   function getRemainingTime() {
     return getRemainingEncounters() * getAverageWait();
   }
 
+  function setClicks() {
+    var n = prompt("enter number of encounters to set (this will wipe your average encounter time)");
+    setEncounters({clicks: n, stamps: []});
+  }
+
   return (
     <div className="app" tabIndex='0' onKeyDown={addEncounter}>
-      <div className="count">
-        {encounters.length}
+      <div className="count" onClick={setClicks}>
+        {encounters.clicks}
       </div>
       <div className="stats">
         <div className="rate">
