@@ -45,7 +45,7 @@ function App() {
 
   function getOdds() {
     var a = 1/8192;
-    var b = encounters.stamps.length;
+    var b = encounters.clicks;
     var c = Math.pow(1 - a, b);
     return 100 * (c * Math.pow( - (1 / (a - 1)), b) - c)
   }
@@ -53,7 +53,7 @@ function App() {
   function getRemainingEncounters() {
     var a = 1/8192;
     var b = Math.ceil(Math.log(0.1) / Math.log(1 - a));
-    return b - encounters.stamps.length;
+    return b - encounters.clicks;
   }
 
   function getRemainingTime() {
@@ -73,10 +73,13 @@ function App() {
       <div className="count" onClick={setClicks}>
         {encounters.clicks}
       </div>
+      <div className="session">
+        {encounters.stamps.length}
+      </div>
       <div className="stats">
         <div className="rate">
           <div className="avg">avg. {humanizeDuration(getAverageWait(), { maxDecimalPoints: 2 })}</div>
-          <div className="remaining">expected {humanizeDuration(getRemainingTime(), { largest: 2, maxDecimalPoints: 2 })} remaining</div>
+          <div className="remaining">expected {humanizeDuration(getRemainingTime(), { largest: 2, maxDecimalPoints: 0, units: ["h","m"] })} remaining</div>
         </div>
         <div className="chance">
           <div className="odds">{getOdds().toFixed(2)}%</div>

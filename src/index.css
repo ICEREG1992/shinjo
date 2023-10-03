@@ -29,6 +29,12 @@ code {
   height:40%;
 }
 
+.session {
+  display:flex;
+  justify-content: center;
+  font-size: 1.5em;
+}
+
 .stats {
   display: flex;
   flex-direction: row;
