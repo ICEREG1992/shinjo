@@ -50,6 +50,10 @@ function App() {
     return 100 * (c * Math.pow( - (1 / (a - 1)), b) - c)
   }
 
+  function getProgress() {
+    return ((encounters.clicks / 8192) * 35) + "em";
+  }
+
   function getRemainingEncounters() {
     var a = 1/8192;
     var b = Math.ceil(Math.log(0.1) / Math.log(1 - a));
@@ -73,17 +77,20 @@ function App() {
       <div className="count" onClick={setClicks}>
         {encounters.clicks}
       </div>
+      <div className="bar">
+        <div className="progress" style={{width: getProgress()}}></div>
+      </div>
       <div className="session">
         {encounters.stamps.length}
       </div>
-      <div className="stats">
+      <div className="stats" onClick={addEncounter}>
         <div className="rate">
-          <div className="avg">avg. {humanizeDuration(getAverageWait(), { maxDecimalPoints: 2 })}</div>
+          <div className="avg">avg. {humanizeDuration(getAverageWait(), { maxDecimalPoints: 2 })} run time</div>
           <div className="remaining">expected {humanizeDuration(getRemainingTime(), { largest: 2, maxDecimalPoints: 0, units: ["h","m"] })} remaining</div>
         </div>
         <div className="chance">
-          <div className="odds">{getOdds().toFixed(2)}%</div>
-          <div className="remaining">{getRemainingEncounters()} encounters remaining</div>
+          <div className="odds">{getOdds().toFixed(2)}% odds to have caught by now</div>
+          <div className="remaining">{getRemainingEncounters()} encounters for 90% odds</div>
         </div>
       </div>
     </div>
