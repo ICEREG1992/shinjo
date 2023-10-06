@@ -51,7 +51,7 @@ function App() {
   }
 
   function getProgress() {
-    return ((encounters.clicks / 8192) * 35) + "em";
+    return ((encounters.clicks / 8192) * 100) + "%";
   }
 
   function getRemainingEncounters() {

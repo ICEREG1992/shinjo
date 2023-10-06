@@ -26,7 +26,7 @@ code {
   display:flex;
   justify-content: center;
   align-items: flex-end;
-  font-size: 12em;
+  font-size: min(12em, 42vw);
 }
 
 .session {
@@ -41,7 +41,7 @@ code {
   flex-direction: column;
   justify-content: space-around;
   align-items: flex-start;
-  font-size: 2em;
+  font-size: min(2em, 8vw);
   user-select: none;
   cursor: pointer;
 }
@@ -56,17 +56,19 @@ code {
 
 .stats div div {
   text-align: left;
+  margin-bottom: .1em;
 }
 
 .bar {
   height:4px;
   background-color: lightgrey;
   width: 35em;
+  max-width: 90%;
 }
 
 .progress {
-  border: 2px solid grey;
-  width: 6em;
+  height: 4px;
+  background-color: gray;
 }
 
 /* div {
