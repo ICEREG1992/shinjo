@@ -61,7 +61,7 @@ function App() {
   }
 
   function getRemainingTime() {
-    return getRemainingEncounters() * getAverageWait();
+    return (8192-encounters.clicks) * getAverageWait();
   }
 
   function setClicks() {
@@ -86,7 +86,7 @@ function App() {
       <div className="stats" onClick={addEncounter}>
         <div className="rate">
           <div className="avg">avg. {humanizeDuration(getAverageWait(), { maxDecimalPoints: 2 })} run time</div>
-          <div className="remaining">expected {humanizeDuration(getRemainingTime(), { largest: 2, maxDecimalPoints: 0, units: ["h","m"] })} remaining</div>
+          <div className="remaining">expected {humanizeDuration(getRemainingTime(), { largest: 2, maxDecimalPoints: 0, units: ["h","m"] })} until 8192</div>
         </div>
         <div className="chance">
           <div className="odds">{getOdds().toFixed(2)}% odds to have caught by now</div>
