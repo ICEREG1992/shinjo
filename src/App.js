@@ -81,7 +81,7 @@ function App() {
         <div className="progress" style={{width: getProgress()}}></div>
       </div>
       <div className="session">
-        {encounters.stamps.length}
+        {encounters.stamps.length} this session
       </div>
       <div className="stats" onClick={addEncounter}>
         <div className="rate">
@@ -93,7 +93,7 @@ function App() {
           <div className="remaining">{getRemainingEncounters()} encounters for 90% odds</div>
         </div>
       </div>
-    </div>
+          </div>
   );
 }
 
