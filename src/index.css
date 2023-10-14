@@ -47,6 +47,10 @@ code {
   cursor: pointer;
 }
 
+.stats:active {
+  color: gray;
+}
+
 .rate, .chance {
   display: flex;
   flex-direction: column;
