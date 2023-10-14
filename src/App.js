@@ -65,7 +65,7 @@ function App() {
   }
 
   function setClicks() {
-    var n = prompt("enter number of encounters to set (this will wipe your average encounter time)");
+    var n = prompt("enter number of encounters to set (this will reset your current session)");
     n = parseInt(n);
     if (!isNaN(n)) {
       setEncounters({clicks: n, stamps: []});
