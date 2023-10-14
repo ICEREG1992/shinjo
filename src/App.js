@@ -29,7 +29,7 @@ function App() {
   }
 
   function getAverageWait() {
-    if (encounters.stamps.length === 0) {
+    if (encounters.stamps.length < 2) {
       return 60000
     }
     let prev = 0;
