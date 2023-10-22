@@ -114,7 +114,7 @@ function App() {
           <div className="remaining">{getRemainingEncounters()} encounters until 90% odds</div>
         </div>
       </div>
-          </div>
+    </div>
   );
 }
 
