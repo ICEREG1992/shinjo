@@ -111,7 +111,7 @@ function App() {
         </div>
         <div className="chance">
           <div className="odds">{getOdds().toFixed(2)}% odds to have caught by now</div>
-          <div className="remaining">{getRemainingEncounters()} encounters for 90% odds</div>
+          <div className="remaining">{getRemainingEncounters()} encounters until 90% odds</div>
         </div>
       </div>
           </div>
