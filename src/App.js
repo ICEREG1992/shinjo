@@ -72,9 +72,30 @@ function App() {
     }
   }
 
+  function getStyle() {
+    var c = encounters.clicks.toString()
+    if (c.length > 2) {
+      if (c.split('6').join('').length === 0) {
+        return "red"
+      } else if (c.split('7').join('').length === 0) {
+        return "green"
+      } else if (c.split('3').join('').length === 0) {
+        return "pink"
+      } else if (c.substring(1).split('0').join('').length === 0) {
+        return "steelblue"
+      } else if (c.split(c[0]).join('').length === 0) {
+        return "goldenrod"
+      }
+    }
+    if (c === '8192') {
+      return "purple"
+    }
+    return "black"
+  }
+
   return (
     <div className="app" tabIndex='0' onKeyDown={addEncounter}>
-      <div className="count" onClick={setClicks}>
+      <div className="count" onClick={setClicks} style={{color: getStyle()}}>
         {encounters.clicks}
       </div>
       <div className="bar">
