@@ -27,14 +27,20 @@ code {
   justify-content: center;
   align-items: flex-end;
   font-size: min(12em, 42vw);
+  cursor: pointer;
 }
 
 .session {
   display:flex;
-  justify-content: center;
+  justify-content: space-between;
   font-size: 1.5em;
   margin-bottom: 1em;
-  color: gray
+  color: gray;
+  width: 23.33em;
+}
+
+.sessionodds {
+  cursor: pointer;
 }
 
 .stats {
