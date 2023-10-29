@@ -170,7 +170,7 @@ function App() {
   function Progress() {
     var out = [];
     for (var i = 0; i < Math.ceil(encounters.clicks / encounters.odds); i++) {
-      out.push(<div className={"progress" + (i+1 < Math.ceil(encounters.clicks / encounters.odds) ? " done" : "")} style={{width: getProgress(i)}}></div>);
+      out.push(<div className="progress" style={{width: getProgress(i)}}></div>);
     }
     return out;
   }
