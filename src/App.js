@@ -97,7 +97,7 @@ function App() {
         return "goldenrod";
       }
     }
-    if (c === Math.ceil(encounters.odds)) {
+    if (c === parseInt(Math.ceil(encounters.odds))) {
       return "purple";
     }
     return "black";
