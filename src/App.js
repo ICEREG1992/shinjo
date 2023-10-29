@@ -103,6 +103,7 @@ function App() {
     switch (c) {
       case '8008': return "mistyrose";
       case '1337': return "lime";
+      case '404': return "maroon";
       default: break;
     }
     return "black";
