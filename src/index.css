@@ -26,7 +26,7 @@ code {
   display:flex;
   justify-content: center;
   align-items: flex-end;
-  font-size: min(12em, 42vw);
+  font-size: min(12em, 30vw);
   cursor: pointer;
 }
 
@@ -37,6 +37,7 @@ code {
   margin-bottom: 1em;
   color: gray;
   width: 23.33em;
+  max-width: 90%;
 }
 
 .sessionodds {
@@ -51,6 +52,7 @@ code {
   font-size: min(2em, 8vw);
   user-select: none;
   cursor: pointer;
+  max-width: 90%;
 }
 
 .stats:active {
