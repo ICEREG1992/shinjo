@@ -100,6 +100,11 @@ function App() {
     if (c === (Math.ceil(encounters.odds)).toString()) {
       return "purple";
     }
+    switch (c) {
+      case '8008': return "mistyrose";
+      case '1337': return "lime";
+      default: break;
+    }
     return "black";
   }
 
