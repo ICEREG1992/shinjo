@@ -82,6 +82,23 @@ code {
 .progress {
   height: 4px;
   background-color: gray;
+  position:absolute;
+}
+
+.bar div:nth-child(2) {
+  background-color: goldenrod;
+}
+
+.bar div:nth-child(3) {
+  background-color: orange;
+}
+
+.bar div:nth-child(4) {
+  background-color: red;
+}
+
+.done {
+  height: 4px;
 }
 
 /* div {

@@ -21,9 +21,7 @@ function App() {
 
   function addEncounter(e) {
     // add new encounter to list
-    console.log(encounters);
     setEncounters(prev => {
-      console.log(prev);
       return {clicks: prev.clicks + 1, stamps: [...(prev.stamps), Date.now()], odds: prev.odds};
     })
   }
@@ -50,8 +48,8 @@ function App() {
     return 100 * (c * Math.pow( - (1 / (a - 1)), b) - c)
   }
 
-  function getProgress() {
-    return ((encounters.clicks / encounters.odds) * 100) + "%";
+  function getProgress(i) {
+    return (Math.min(35, ((encounters.clicks / encounters.odds) * 35) - (35 * i))) + "em";
   }
 
   function getRemainingEncounters() {
@@ -148,13 +146,22 @@ function App() {
     return flag;
   }
 
+  function Progress() {
+    var out = [];
+    for (var i = 0; i < Math.ceil(encounters.clicks / encounters.odds); i++) {
+      out.push(<div className={"progress" + (i+1 < Math.ceil(encounters.clicks / encounters.odds) ? " done" : "")} style={{width: getProgress(i)}}></div>);
+    }
+    return out;
+  }
+
   return (
     <div className="app" tabIndex='0' onKeyDown={addEncounter}>
       <div className="count" onClick={setClicks} style={{color: getStyle()}}>
         {encounters.clicks}
       </div>
       <div className="bar">
-        <div className="progress" style={{width: getProgress()}}></div>
+        <Progress />
+        {/* <div className="progress" style={{width: getProgress()}}></div> */}
       </div>
       <div className="session">
         <div className="sessioncount">
