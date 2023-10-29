@@ -81,24 +81,65 @@ function App() {
   }
 
   function getStyle() {
-    var c = encounters.clicks.toString()
+    var c = encounters.clicks.toString();
     if (c.length > 2) {
-      if (c.split('6').join('').length === 0) {
-        return "red"
+      if (isSequential(c)) {
+        return "grey";
+      } else if (c.split('6').join('').length === 0) {
+        return "red";
       } else if (c.split('7').join('').length === 0) {
-        return "green"
+        return "green";
       } else if (c.split('3').join('').length === 0) {
-        return "pink"
+        return "pink";
       } else if (c.substring(1).split('0').join('').length === 0) {
-        return "steelblue"
+        return "steelblue";
       } else if (c.split(c[0]).join('').length === 0) {
-        return "goldenrod"
+        return "goldenrod";
       }
     }
     if (c === Math.ceil(encounters.odds)) {
-      return "purple"
+      return "purple";
     }
-    return "black"
+    return "black";
+  }
+
+  // this function sucks
+  function isSequential(s) {
+    var a = parseInt(s[0]), b = parseInt(s[1]);
+    var ascending;
+    var c = 1
+    if (a < b) {
+      ascending = true;
+      c = b - a;
+    } else if (a > b) {
+      ascending = false;
+      c = a - b;
+    } else {
+      return false;
+    }
+    // return if not interesting cases
+    if ((c === 3 && a < 3) || (s.length === 3 && c === 2)) { return false }
+    var flag = true;
+    if (ascending) {
+      for (var i = 1; i < s.length; i++) {
+        if (parseInt(s[i]) > a && parseInt(s[i]) - a === c) {
+          a = parseInt(s[i]);
+        } else {
+          flag = false;
+          break;
+        }
+      }
+    } else {
+      for (i = 1; i < s.length; i++) {
+        if (parseInt(s[i]) < a && a - parseInt(s[i]) === c) {
+          a = parseInt(s[i]);
+        } else {
+          flag = false;
+          break;
+        }
+      }
+    }
+    return flag;
   }
 
   return (
