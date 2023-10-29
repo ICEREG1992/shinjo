@@ -122,6 +122,27 @@ function App() {
       return false;
     }
     // return if not interesting cases
+    if (ascending) {
+      if (c === 2 && s.length === 3 && (a === 1 || a > 4)) { // cut 135, 468, 579
+        return false;
+      }
+      if (c === 3 && a < 3) { // cut 147, 258
+        return false;
+      }
+    } else {
+      if (c === 1 && s.length === 3 && (a !== 3)) { // cut 210, 432, 543, 654, 765, 876, 987
+        return false;
+      }
+      if (c === 2 && s.length === 3) { // cut 420, 531, 642, 753, 864, 975
+        return false;
+      }
+      if (c === 2 && s.length === 4 && (a === 6 || a === 9)) { // cut 6420, 9753
+        return false;
+      }
+      if (c === 3) { // cut 630, 741, 852, 963, 9630
+        return false;
+      }
+    }
     if ((c === 3 && a < 3) || (s.length === 3 && c === 2)) { return false }
     var flag = true;
     if (ascending) {
