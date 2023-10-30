@@ -20,6 +20,15 @@ function App() {
   }, [encounters])
 
   function addEncounter(e) {
+    switch (e.key) {
+      case 'Alt':
+      case 'Tab':
+      case 'Meta':
+      case 'ContextMenu':
+      case 'Escape':
+        return;
+      default: break;
+    }
     // add new encounter to list
     setEncounters(prev => {
       return {clicks: prev.clicks + 1, stamps: [...(prev.stamps), Date.now()], odds: prev.odds};
