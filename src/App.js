@@ -152,6 +152,9 @@ function App() {
       if (c === 3 && a < 3) { // cut 147, 258
         return false;
       }
+      if (c > 3) {
+        return false;
+      }
     } else {
       if (c === 1 && s.length === 3 && (a !== 3)) { // cut 210, 432, 543, 654, 765, 876, 987
         return false;
@@ -162,7 +165,7 @@ function App() {
       if (c === 2 && s.length === 4 && (a === 6 || a === 9)) { // cut 6420, 9753
         return false;
       }
-      if (c === 3) { // cut 630, 741, 852, 963, 9630
+      if (c <= 3) { // cut 630, 741, 852, 963, 9630
         return false;
       }
     }
