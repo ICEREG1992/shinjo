@@ -27,6 +27,20 @@ function App() {
       case 'ContextMenu':
       case 'Escape':
         return;
+      case 'Enter':
+        switch (e.target){
+          case document.getElementsByClassName('count')[0]:
+            setClicks();
+            break;
+          case document.getElementsByClassName('sessionodds')[0]:
+            setOdds();
+            break;
+          case document.getElementsByClassName('stats')[0]:
+            break;
+          default:
+            break;
+        }
+        break;
       default: break;
     }
     // add new encounter to list
@@ -186,7 +200,7 @@ function App() {
 
   return (
     <div className="app" tabIndex='0' onKeyDown={addEncounter}>
-      <div className="count" onClick={setClicks} style={{color: getStyle()}}>
+      <div className="count" onClick={setClicks} style={{color: getStyle()}} tabIndex={0} onSubmit={setClicks}>
         {encounters.clicks}
       </div>
       <div className="bar">
@@ -197,11 +211,11 @@ function App() {
         <div className="sessioncount">
           {encounters.stamps.length} this session
         </div>
-        <div className="sessionodds" onClick={setOdds}>
+        <div className="sessionodds" onClick={setOdds} tabIndex={0}>
           {encounters.odds}
         </div>
       </div>
-      <div className="stats" onClick={addEncounter}>
+      <div className="stats" onClick={addEncounter} tabIndex={0}>
         <div className="rate">
           <div className="avg">avg. {humanizeDuration(getAverageWait(), { maxDecimalPoints: 2 })} run time</div>
           <div className="remaining">expected {humanizeDuration(getRemainingTime(), { largest: 2, maxDecimalPoints: 0, units: ["h","m"] })} until {Math.ceil(encounters.odds)}</div>
