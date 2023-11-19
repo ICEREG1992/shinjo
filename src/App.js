@@ -8,7 +8,7 @@ const localStorageKey = 'shinjo.data';
 function App() {
   const [pageData, setPageData] = useState({clicks: 0, stamps: [], odds: 8192, darkmode: 0});
   const [gearState, setGearState] = useState(false)
-  const [modalState, setModalState] = useState(true)
+  const [modalState, setModalState] = useState(false)
   const gearRef = useRef(null)
   const modalRef = useRef(null)
 
