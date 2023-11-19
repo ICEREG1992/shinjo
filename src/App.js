@@ -1,23 +1,28 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { CSSTransition } from "react-transition-group";
 import humanizeDuration from 'humanize-duration';
 
 const localStorageKey = 'shinjo.data';
 
 function App() {
-  const [encounters, setEncounters] = useState({clicks: 0, stamps: [], odds: 8192});
+  const [pageData, setPageData] = useState({clicks: 0, stamps: [], odds: 8192, darkmode: 0});
+  const [moonState, setMoonState] = useState(false)
+  const moonRef = useRef(null)
+  const modalRef = useRef(null)
 
+  // trigger once on page load
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem(localStorageKey));
     if (data) {
-      setEncounters({clicks: data[0], stamps: [], odds: data[1]});
+      setPageData({clicks: data[0], stamps: [], odds: data[1], darkmode: data[2]});
     }
   }, [])
 
-  // save encounters to local storage
+  // save pageData to local storage
   useEffect(() => {
-    localStorage.setItem(localStorageKey, JSON.stringify([encounters.clicks, encounters.odds]));
-  }, [encounters])
+    localStorage.setItem(localStorageKey, JSON.stringify([pageData.clicks, pageData.odds, pageData.darkmode]));
+  }, [pageData])
 
   function addEncounter(e) {
     switch (e.key) {
@@ -44,52 +49,52 @@ function App() {
       default: break;
     }
     // add new encounter to list
-    setEncounters(prev => {
-      return {clicks: prev.clicks + 1, stamps: [...(prev.stamps), Date.now()], odds: prev.odds};
+    setPageData(prev => {
+      return {clicks: prev.clicks + 1, stamps: [...(prev.stamps), Date.now()], odds: prev.odds, darkmode: prev.darkmode};
     })
   }
 
   function getAverageWait() {
-    if (encounters.stamps.length < 2) {
+    if (pageData.stamps.length < 2) {
       return 60000
     }
     let prev = 0;
     let avg = 0;
-    encounters.stamps.forEach(element => {
+    pageData.stamps.forEach(element => {
       if (prev !== 0) {
         avg += element - prev;
       }
       prev = element;
     });
-    return (avg / (encounters.stamps.length - 1))
+    return (avg / (pageData.stamps.length - 1))
   }
 
   function getOdds() {
-    var a = 1/encounters.odds;
-    var b = encounters.clicks;
+    var a = 1/pageData.odds;
+    var b = pageData.clicks;
     var c = Math.pow(1 - a, b);
     return 100 * (c * Math.pow( - (1 / (a - 1)), b) - c)
   }
 
   function getProgress(i) {
-    return (Math.min(35, ((encounters.clicks / encounters.odds) * 35) - (35 * i))) + "em";
+    return (Math.min(35, ((pageData.clicks / pageData.odds) * 35) - (35 * i))) + "em";
   }
 
   function getRemainingEncounters() {
-    var a = 1/encounters.odds;
+    var a = 1/pageData.odds;
     var b = Math.ceil(Math.log(0.1) / Math.log(1 - a));
-    return b - encounters.clicks;
+    return b - pageData.clicks;
   }
 
   function getRemainingTime() {
-    return (Math.ceil(encounters.odds)-encounters.clicks) * getAverageWait();
+    return (Math.ceil(pageData.odds)-pageData.clicks) * getAverageWait();
   }
 
   function setClicks() {
     var n = prompt("enter number of encounters to set (this will reset your current session)");
     n = parseInt(n);
     if (!isNaN(n)) {
-      setEncounters({clicks: n, stamps: [], odds: encounters.odds});
+      setPageData({clicks: n, stamps: [], odds: pageData.odds, darkmode: pageData.darkmode});
     }
   }
 
@@ -97,12 +102,12 @@ function App() {
     var n = prompt("enter a denominator value for your shiny odds (e.g. 8192 for full odds)");
     n = parseFloat(n);
     if (!isNaN(n)) {
-      setEncounters({clicks: encounters.clicks, stamps: encounters.stamps, odds: n});
+      setPageData({clicks: pageData.clicks, stamps: pageData.stamps, odds: n, darkmode: pageData.darkmode});
     }
   }
 
   function getStyle() {
-    var c = encounters.clicks.toString();
+    var c = pageData.clicks.toString();
     if (c.length > 2) {
       if (isSequential(c)) {
         return "grey";
@@ -118,16 +123,18 @@ function App() {
         return "goldenrod";
       }
     }
-    if (c === (Math.ceil(encounters.odds)).toString()) {
+    if (c === (Math.ceil(pageData.odds)).toString()) {
       return "purple";
     }
     switch (c) {
       case '8008': return "mistyrose";
       case '1337': return "lime";
+      case '1312': return "navy";
+      case '2023': return "orange";
       case '404': return "maroon";
       default: break;
     }
-    return "black";
+    return pageData.darkmode ? "aliceblue": "black";
   }
 
   // this function sucks
@@ -195,16 +202,42 @@ function App() {
 
   function Progress() {
     var out = [];
-    for (var i = 0; i < Math.ceil(encounters.clicks / encounters.odds); i++) {
+    for (var i = 0; i < Math.ceil(pageData.clicks / pageData.odds); i++) {
       out.push(<div className="progress" style={{width: getProgress(i)}}></div>);
     }
     return out;
   }
 
+  function Moon() {
+    var svg;
+    if (pageData.darkmode) {
+      svg = <svg xmlns="http://www.w3.org/2000/svg" width="2.5em" height="2.5em" fill="currentColor" className="bi bi-moon-fill" viewBox="0 0 16 16">
+        <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+      </svg>
+    } else {
+      svg = <svg xmlns="http://www.w3.org/2000/svg" width="2.5em" height="2.5em" fill="currentColor" className="bi bi-moon" viewBox="0 0 16 16">
+        <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278zM4.858 1.311A7.269 7.269 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.316 7.316 0 0 0 5.205-2.162c-.337.042-.68.063-1.029.063-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z"/>
+      </svg>
+    }
+    return (<div className={"moon" + (pageData.darkmode ? " dark" : "")} onClick={toggleDarkMode} ref={moonRef}>{svg}</div>)
+  }
+
+  function showOptions() {
+    setMoonState(true);
+  }
+
+  function hideOptions() {
+    setMoonState(false);
+  }
+
+  function toggleDarkMode() {
+    setPageData(prev => {return {clicks: prev.clicks, stamps: prev.stamps, odds: prev.odds, darkmode: !prev.darkmode}});
+  }
+
   return (
-    <div className="app" tabIndex='0' onKeyDown={addEncounter}>
+    <div className={"app" + (pageData.darkmode ? " dark" : "")} tabIndex='0' onKeyDown={addEncounter}>
       <div className="count" onClick={setClicks} style={{color: getStyle()}} tabIndex={0} onSubmit={setClicks}>
-        {encounters.clicks}
+        {pageData.clicks}
       </div>
       <div className="bar">
         <Progress />
@@ -212,21 +245,26 @@ function App() {
       </div>
       <div className="session">
         <div className="sessioncount">
-          {encounters.stamps.length} this session
+          {pageData.stamps.length} this session
         </div>
         <div className="sessionodds" onClick={setOdds} tabIndex={0}>
-          {encounters.odds}
+          {pageData.odds}
         </div>
       </div>
-      <div className="stats" onClick={addEncounter} tabIndex={0}>
+      <div className={"stats" + (pageData.darkmode ? " dark" : "")} onClick={addEncounter} tabIndex={0}>
         <div className="rate">
           <div className="avg">avg. {humanizeDuration(getAverageWait(), { maxDecimalPoints: 2 })} run time</div>
-          <div className="remaining">expected {humanizeDuration(getRemainingTime(), { largest: 2, maxDecimalPoints: 0, units: ["h","m"] })} until {Math.ceil(encounters.odds)}</div>
+          <div className="remaining">expected {humanizeDuration(getRemainingTime(), { largest: 2, maxDecimalPoints: 0, units: ["h","m"] })} until {Math.ceil(pageData.odds)}</div>
         </div>
         <div className="chance">
           <div className="odds">{getOdds().toFixed(2)}% odds to have caught by now</div>
           <div className="remaining">{getRemainingEncounters()} encounters until 90% odds</div>
         </div>
+      </div>
+      <div className="options" onMouseEnter={showOptions} onMouseLeave={hideOptions}>
+        <CSSTransition nodeRef={moonRef} in={moonState} timeout={200} classNames="moon-transition" unmountOnExit>
+          <Moon/>
+        </CSSTransition>
       </div>
     </div>
   );

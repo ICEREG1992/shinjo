@@ -59,6 +59,10 @@ code {
   max-width: 90%;
 }
 
+.stats.dark {
+  color:aliceblue;
+}
+
 .stats:active {
   color: gray;
 }
@@ -94,11 +98,15 @@ code {
 }
 
 .bar div:nth-child(3) {
-  background-color: orange;
+  background-color: orangered;
 }
 
 .bar div:nth-child(4) {
-  background-color: red;
+  background-color: maroon;
+}
+
+.bar div:nth-child(n+5) {
+  background-color: black;
 }
 
 .app:focus-visible {
