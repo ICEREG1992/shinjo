@@ -101,6 +101,70 @@ code {
   border: 0;
 }
 
+.options {
+  position:absolute;
+  top:0;
+  right:0;
+  width:10em;
+  height:10em;
+}
+
+.gear {
+  position:absolute;
+  top:3em;
+  right:3em;
+  cursor: pointer;
+}
+
+.options .gear-transition-enter {
+  opacity: 0;
+}
+.options .gear-transition-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+.options .gear-transition-enter-done {
+  opacity: 1;
+}
+.options .gear-transition-exit {
+  opacity: 1;
+}
+.options .gear-transition-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+.options .gear-transition-exit-done {
+  opacity: 0;
+}
+
+.modal {
+  display:flex;
+  width:10em;
+  height:10em;
+}
+
+.modal-transition-enter {
+  opacity: 0;
+}
+.modal-transition-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+.modal-transition-enter-done {
+  opacity: 1;
+}
+.modal-transition-exit {
+  opacity: 1;
+}
+.modal-transition-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+.modal-transition-exit-done {
+  opacity: 0;
+}
+
+
 /* div {
   border: 1px solid white;
 } */
