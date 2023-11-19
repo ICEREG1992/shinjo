@@ -19,7 +19,11 @@ code {
   justify-content: center;
   align-items: flex-start;
   height: 100%;
-  margin-left: 10%;
+  padding-left: 10%;
+}
+
+.app.dark {
+  background-color: #060606;
 }
 
 .count {
@@ -53,6 +57,10 @@ code {
   user-select: none;
   cursor: pointer;
   max-width: 90%;
+}
+
+.stats.dark {
+  color:aliceblue;
 }
 
 .stats:active {
@@ -90,11 +98,15 @@ code {
 }
 
 .bar div:nth-child(3) {
-  background-color: orange;
+  background-color: orangered;
 }
 
 .bar div:nth-child(4) {
-  background-color: red;
+  background-color: maroon;
+}
+
+.bar div:nth-child(n+5) {
+  background-color: black;
 }
 
 .app:focus-visible {
@@ -109,31 +121,35 @@ code {
   height:10em;
 }
 
-.gear {
+.moon {
   position:absolute;
   top:3em;
   right:3em;
   cursor: pointer;
 }
 
-.options .gear-transition-enter {
+.moon.dark {
+  color:aliceblue;
+}
+
+.options .moon-transition-enter {
   opacity: 0;
 }
-.options .gear-transition-enter-active {
+.options .moon-transition-enter-active {
   opacity: 1;
   transition: opacity 200ms;
 }
-.options .gear-transition-enter-done {
+.options .moon-transition-enter-done {
   opacity: 1;
 }
-.options .gear-transition-exit {
+.options .moon-transition-exit {
   opacity: 1;
 }
-.options .gear-transition-exit-active {
+.options .moon-transition-exit-active {
   opacity: 0;
   transition: opacity 200ms;
 }
-.options .gear-transition-exit-done {
+.options .moon-transition-exit-done {
   opacity: 0;
 }
 
