@@ -137,7 +137,7 @@ code {
 }
 .options .moon-transition-enter-active {
   opacity: 1;
-  transition: opacity 200ms;
+  transition: opacity 250ms;
 }
 .options .moon-transition-enter-done {
   opacity: 1;
@@ -147,40 +147,8 @@ code {
 }
 .options .moon-transition-exit-active {
   opacity: 0;
-  transition: opacity 200ms;
+  transition: opacity 250ms;
 }
 .options .moon-transition-exit-done {
   opacity: 0;
 }
-
-.modal {
-  display:flex;
-  width:10em;
-  height:10em;
-}
-
-.modal-transition-enter {
-  opacity: 0;
-}
-.modal-transition-enter-active {
-  opacity: 1;
-  transition: opacity 200ms;
-}
-.modal-transition-enter-done {
-  opacity: 1;
-}
-.modal-transition-exit {
-  opacity: 1;
-}
-.modal-transition-exit-active {
-  opacity: 0;
-  transition: opacity 200ms;
-}
-.modal-transition-exit-done {
-  opacity: 0;
-}
-
-
-/* div {
-  border: 1px solid white;
-} */
