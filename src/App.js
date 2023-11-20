@@ -9,7 +9,6 @@ function App() {
   const [pageData, setPageData] = useState({clicks: 0, stamps: [], odds: 8192, darkmode: 0});
   const [moonState, setMoonState] = useState(false)
   const moonRef = useRef(null)
-  const modalRef = useRef(null)
 
   // trigger once on page load
   useEffect(() => {
