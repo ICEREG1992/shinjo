@@ -75,10 +75,6 @@ function App() {
     return 100 * (c * Math.pow( - (1 / (a - 1)), b) - c)
   }
 
-  function getProgress(i) {
-    return (Math.min(35, ((pageData.clicks / pageData.odds) * 35) - (35 * i))) + "em";
-  }
-
   function getRemainingEncounters() {
     var a = 1/pageData.odds;
     var b = Math.ceil(Math.log(0.1) / Math.log(1 - a));
