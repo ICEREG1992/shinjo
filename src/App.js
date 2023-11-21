@@ -126,6 +126,7 @@ function App() {
       case '1337': return "lime";
       case '1312': return "navy";
       case '1492': return "lightseagreen";
+      case '1984': return "darkred"
       case '2023': return "orange";
       case '404': return "maroon";
       default: break;
