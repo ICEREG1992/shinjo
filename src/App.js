@@ -6,7 +6,7 @@ import humanizeDuration from 'humanize-duration';
 const localStorageKey = 'shinjo.data';
 
 function App() {
-  const [pageData, setPageData] = useState({clicks: 0, stamps: [], odds: 8192, darkmode: 0});
+  const [pageData, setPageData] = useState({clicks: 0, stamps: [], odds: 8192, darkmode: false});
   const [moonState, setMoonState] = useState(false)
   const moonRef = useRef(null)
 
@@ -14,7 +14,7 @@ function App() {
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem(localStorageKey));
     if (data) {
-      setPageData({clicks: data[0], stamps: [], odds: data[1], darkmode: data[2]});
+      setPageData({clicks: data[0], stamps: [], odds: data[1], darkmode: (data[2]==='true')});
     }
   }, [])
 
@@ -201,9 +201,10 @@ function App() {
 
   function Progress() {
     var out = [];
-    for (var i = 0; i < Math.ceil(pageData.clicks / pageData.odds); i++) {
-      out.push(<div className="progress" style={{width: getProgress(i)}}></div>);
+    for (var i = 0; i < Math.ceil(pageData.clicks / pageData.odds)-1; i++) {
+      out.push(<div className="progress" style={{width: 'min(35em, 81%)'}}></div>);
     }
+    out.push(<div className="progress" style={{width: (((pageData.clicks / pageData.odds)-i)*100) + "%", position: "relative"}}></div>);
     return out;
   }
 
