@@ -234,7 +234,7 @@ function App() {
   }
 
   return (
-    <div className={"app" + (pageData.darkmode ? " dark" : "")} tabIndex='0' onKeyDown={addEncounter}>
+    <div className={"app" + (pageData.darkmode ? " dark" : "")} tabIndex='0' onKeyDown={addEncounter} onTouchStart={hideOptions}>
       <div className="count" onClick={setClicks} style={{color: getStyle()}} tabIndex={0} onSubmit={setClicks}>
         {pageData.clicks}
       </div>
