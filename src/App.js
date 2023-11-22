@@ -14,7 +14,7 @@ function App() {
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem(localStorageKey));
     if (data) {
-      setPageData({clicks: data[0], stamps: [], odds: data[1], darkmode: (data[2]==='true')});
+      setPageData({clicks: data[0], stamps: [], odds: data[1], darkmode: data[2]});
     }
   }, [])
 
