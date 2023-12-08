@@ -76,10 +76,6 @@ function App() {
     return 100 * (c * Math.pow( - (1 / (a - 1)), b) - c)
   }
 
-  function getProgress(i) {
-    return (Math.min(35, ((pageData.clicks / pageData.odds) * 35) - (35 * i))) + "em";
-  }
-
   function getRemainingEncounters() {
     var a = 1/pageData.odds;
     var b = Math.ceil(Math.log(0.1) / Math.log(1 - a));
@@ -130,6 +126,8 @@ function App() {
       case '8008': return "mistyrose";
       case '1337': return "lime";
       case '1312': return "navy";
+      case '1492': return "lightseagreen";
+      case '1984': return "darkred"
       case '2023': return "orange";
       case '404': return "maroon";
       default: break;
@@ -202,9 +200,10 @@ function App() {
 
   function Progress() {
     var out = [];
-    for (var i = 0; i < Math.ceil(pageData.clicks / pageData.odds); i++) {
-      out.push(<div className="progress" style={{width: getProgress(i)}}></div>);
+    for (var i = 0; i < Math.ceil(pageData.clicks / pageData.odds)-1; i++) {
+      out.push(<div className="progress" style={{width: 'min(35em, 81%)'}}></div>);
     }
+    out.push(<div className="progress" style={{width: (((pageData.clicks / pageData.odds)-i)*100) + "%", position: "relative"}}></div>);
     return out;
   }
 
@@ -280,7 +279,7 @@ function App() {
   }
 
   return (
-    <div className={"app" + (pageData.darkmode ? " dark" : "")} tabIndex='0' onKeyDown={addEncounter}>
+    <div className={"app" + (pageData.darkmode ? " dark" : "")} tabIndex='0' onKeyDown={addEncounter} onTouchStart={hideGear}>
       <div className="left">
         <div className="count" onClick={setClicks} style={{color: getStyle()}} tabIndex={0} onSubmit={setClicks}>
           {pageData.clicks}
